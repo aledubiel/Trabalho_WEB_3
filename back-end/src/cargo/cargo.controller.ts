@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
 import { CargoService } from './cargo.service';
 import { CreateCargoDto } from './dto/create-cargo.dto';
 import { UpdateCargoDto } from './dto/update-cargo.dto';
@@ -10,6 +10,10 @@ export class CargoController {
   @Get()
   findAll() {
     return this.cargoService.findAll();
+  }
+  @Get('buscar')
+  findByName(@Query('titulo') titulo: string) {
+    return this.cargoService.findByName(titulo);
   }
 
   @Get(':id')

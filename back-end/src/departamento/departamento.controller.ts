@@ -1,22 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
 import { DepartamentoService } from './departamento.service';
 import { CreateDepartamentoDto } from './dto/create-departamento.dto';
 import { UpdateDepartamentoDto } from './dto/update-departamento.dto';
 
 @Controller('departamento')
 export class DepartamentoController {
-  constructor(private readonly departamentoService: DepartamentoService) {}
+  constructor(private readonly departamentoService: DepartamentoService) { }
 
   @Get()
   findAll() {
     return this.departamentoService.findAll();
+  }
+  @Get('buscar')
+  findByName(@Query('nome') nome: string) {
+    return this.departamentoService.findByName(nome);
   }
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.departamentoService.findOne(id);
   }
-  
+
   @Post()
   create(@Body() createDepartamentoDto: CreateDepartamentoDto) {
     return this.departamentoService.create(createDepartamentoDto);

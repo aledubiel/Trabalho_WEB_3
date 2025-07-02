@@ -11,6 +11,19 @@ export class CargoService {
   findAll() {
     return this.prismaService.cargo.findMany();
   }
+  async findByName(titulo: string) {
+    const cargos = await this.prismaService.cargo.findMany({
+      where: {
+        titulo: {
+          contains: titulo
+        }
+      }
+    })
+    if (!cargos || cargos.length === 0) {
+      throw new HttpException('Nenhum cargo encontrado com este nome', HttpStatus.NOT_FOUND);
+    }
+    return cargos
+  }
 
   async findOne(id: number) {
     try {
@@ -40,7 +53,7 @@ export class CargoService {
       if (cargoExistente) {
         throw new HttpException(
           'Já existe um cargo com este título',
-          HttpStatus.CONFLICT, 
+          HttpStatus.CONFLICT,
         );
       }
       return await this.prismaService.cargo.create({
@@ -60,12 +73,12 @@ export class CargoService {
       if (!cargo) {
         throw new HttpException('Cargo não encontrado', HttpStatus.NOT_FOUND);
       }
-      
+
       if (updateCargoDto.titulo) {
         const cargoComMesmoTitulo = await this.prismaService.cargo.findFirst({
           where: {
             titulo: updateCargoDto.titulo,
-            id: { not: id } 
+            id: { not: id }
           }
         });
 
@@ -95,7 +108,7 @@ export class CargoService {
       if (!cargo) {
         throw new HttpException('Cargo não encontrado', HttpStatus.NOT_FOUND);
       }
-      
+
       const funcionariosVinculados = await this.prismaService.funcionario.findFirst({
         where: { cargoId: id }
       });
@@ -103,7 +116,7 @@ export class CargoService {
       if (funcionariosVinculados) {
         throw new HttpException(
           'Não é possível remover este cargo, pois existem funcionários vinculados a ele.',
-          HttpStatus.FORBIDDEN, 
+          HttpStatus.FORBIDDEN,
         );
       }
       await this.prismaService.cargo.delete({

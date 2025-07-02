@@ -25,6 +25,9 @@ let CargoController = class CargoController {
     findAll() {
         return this.cargoService.findAll();
     }
+    findByName(titulo) {
+        return this.cargoService.findByName(titulo);
+    }
     findOne(id) {
         return this.cargoService.findOne(id);
     }
@@ -45,6 +48,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], CargoController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('buscar'),
+    __param(0, (0, common_1.Query)('titulo')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], CargoController.prototype, "findByName", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),

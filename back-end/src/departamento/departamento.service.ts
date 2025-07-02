@@ -12,6 +12,20 @@ export class DepartamentoService {
     return this.prismaService.departamento.findMany();
   }
 
+  async findByName(nome: string) {
+    const departamentos = await this.prismaService.departamento.findMany({
+      where: {
+        nome: {
+          contains: nome
+        }
+      }
+    })
+    if (!departamentos || departamentos.length === 0) {
+      throw new HttpException('Nenhum departamento encontrado com este nome', HttpStatus.NOT_FOUND);
+    }
+    return departamentos
+  }
+
   async findOne(id: number) {
     const departamento = await this.prismaService.departamento.findUnique({
       where: {
@@ -52,7 +66,7 @@ export class DepartamentoService {
       return departamento;
     } catch (error) {
       if (error instanceof HttpException) {
-        throw error; 
+        throw error;
       }
       throw new HttpException('Não foi possível atualizar', HttpStatus.BAD_REQUEST);
     }

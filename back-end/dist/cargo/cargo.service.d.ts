@@ -7,31 +7,38 @@ export declare class CargoService {
     constructor(prismaService: PrismaService);
     findAll(): Prisma.PrismaPromise<{
         id: number;
+        titulo: string;
+        descricao: string;
         create: Date | null;
         update: Date | null;
-        descricao: string;
+    }[]>;
+    findByName(titulo: string): Promise<{
+        id: number;
         titulo: string;
+        descricao: string;
+        create: Date | null;
+        update: Date | null;
     }[]>;
     findOne(id: number): Promise<{
         id: number;
+        titulo: string;
+        descricao: string;
         create: Date | null;
         update: Date | null;
-        descricao: string;
-        titulo: string;
     }>;
     create(createCargoDto: CreateCargoDto): Promise<{
         id: number;
+        titulo: string;
+        descricao: string;
         create: Date | null;
         update: Date | null;
-        descricao: string;
-        titulo: string;
     }>;
     update(id: number, updateCargoDto: UpdateCargoDto): Promise<{
         id: number;
+        titulo: string;
+        descricao: string;
         create: Date | null;
         update: Date | null;
-        descricao: string;
-        titulo: string;
     }>;
     remove(id: number): Promise<{
         message: string;

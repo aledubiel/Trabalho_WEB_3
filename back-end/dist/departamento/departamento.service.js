@@ -20,6 +20,19 @@ let DepartamentoService = class DepartamentoService {
     findAll() {
         return this.prismaService.departamento.findMany();
     }
+    async findByName(nome) {
+        const departamentos = await this.prismaService.departamento.findMany({
+            where: {
+                nome: {
+                    contains: nome
+                }
+            }
+        });
+        if (!departamentos || departamentos.length === 0) {
+            throw new common_1.HttpException('Nenhum departamento encontrado com este nome', common_1.HttpStatus.NOT_FOUND);
+        }
+        return departamentos;
+    }
     async findOne(id) {
         const departamento = await this.prismaService.departamento.findUnique({
             where: {

@@ -43,16 +43,15 @@ export class FuncionariosService {
 
     async findByName(nome: string) {
     try {
-      // Usamos findMany para retornar uma lista de funcionários que correspondem ao critério
       const funcionarios = await this.prismaService.funcionario.findMany({
         where: {
           nome: {
-            contains: nome,       // Filtra por nomes que contenham a string de busca
+            contains: nome,       
           },
         },
         include: {
-          departamento: true,     // Inclui os dados do departamento
-          cargo: true,            // Inclui os dados do cargo
+          departamento: true,     
+          cargo: true,           
         },
       });
 

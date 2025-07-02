@@ -1,4 +1,4 @@
 export default function NovoFuncionario() {
 return(
-    <h1>teste</h1>
+    <h1>Não vai mais rolar com o tempo disponivel</h1>
 )}

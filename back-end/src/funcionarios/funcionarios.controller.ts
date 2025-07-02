@@ -11,7 +11,7 @@ export class FuncionariosController {
   findAll() {
     return this.funcionariosService.findAll();
   }
-  @Get('buscar') // A rota seria /funcionarios/buscar?nome=Joao
+  @Get('buscar') 
   findByName(@Query('nome') nome: string) {
     return this.funcionariosService.findByName(nome);
   }

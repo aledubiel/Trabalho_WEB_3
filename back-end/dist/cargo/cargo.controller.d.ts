@@ -6,31 +6,38 @@ export declare class CargoController {
     constructor(cargoService: CargoService);
     findAll(): import(".prisma/client").Prisma.PrismaPromise<{
         id: number;
+        titulo: string;
+        descricao: string;
         create: Date | null;
         update: Date | null;
-        descricao: string;
+    }[]>;
+    findByName(titulo: string): Promise<{
+        id: number;
         titulo: string;
+        descricao: string;
+        create: Date | null;
+        update: Date | null;
     }[]>;
     findOne(id: number): Promise<{
         id: number;
+        titulo: string;
+        descricao: string;
         create: Date | null;
         update: Date | null;
-        descricao: string;
-        titulo: string;
     }>;
     create(createCargoDto: CreateCargoDto): Promise<{
         id: number;
+        titulo: string;
+        descricao: string;
         create: Date | null;
         update: Date | null;
-        descricao: string;
-        titulo: string;
     }>;
     update(id: number, updateCargoDto: UpdateCargoDto): Promise<{
         id: number;
+        titulo: string;
+        descricao: string;
         create: Date | null;
         update: Date | null;
-        descricao: string;
-        titulo: string;
     }>;
     remove(id: number): Promise<{
         message: string;

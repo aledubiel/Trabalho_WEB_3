@@ -20,6 +20,19 @@ let CargoService = class CargoService {
     findAll() {
         return this.prismaService.cargo.findMany();
     }
+    async findByName(titulo) {
+        const cargos = await this.prismaService.cargo.findMany({
+            where: {
+                titulo: {
+                    contains: titulo
+                }
+            }
+        });
+        if (!cargos || cargos.length === 0) {
+            throw new common_1.HttpException('Nenhum cargo encontrado com este nome', common_1.HttpStatus.NOT_FOUND);
+        }
+        return cargos;
+    }
     async findOne(id) {
         try {
             const cargo = await this.prismaService.cargo.findUnique({
